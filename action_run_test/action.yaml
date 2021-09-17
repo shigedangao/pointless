@@ -1,0 +1,14 @@
+name: 'Unit test'
+description: 'Run unit test & lint for pointless project'
+runs:
+  using: 'composite'
+  steps:
+    - run: cargo test
+      shell: bash
+    - name: Install clippy
+      run: rustup component add clippy
+      shell: bash
+    - uses: actions-rs/clippy-check@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        args: --all-features
