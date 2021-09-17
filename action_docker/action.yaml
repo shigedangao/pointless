@@ -13,6 +13,10 @@ inputs:
     description: commit hash
     default: ''
     required: true
+  token:
+    description: github token
+    default: ''
+    required: true
 runs:
   using: 'composite'
   # based on https://github.com/marketplace/actions/build-and-push-docker-images
@@ -31,4 +35,4 @@ runs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ inputs.dockerhub_username }}/pointless:${{ inputs.commit_hash }}
+        tags: ${{ inputs.dockerhub_username }}/pointless:latest
