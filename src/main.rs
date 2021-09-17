@@ -53,3 +53,14 @@ async fn main() {
         .run(([127, 0, 0, 1], 3000))
         .await;
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::format_html;
+
+    #[test]
+    fn expect_to_return_html() {
+        let html = format_html();
+        assert!(!html.is_empty());
+    }
+}
