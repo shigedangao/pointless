@@ -35,4 +35,4 @@ runs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ inputs.dockerhub_username }}/pointless:latest
+        tags: ${{ inputs.dockerhub_username }}/pointless:${{ inputs.commit_hash }}

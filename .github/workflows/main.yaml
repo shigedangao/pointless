@@ -3,6 +3,9 @@ on:
     branches:
      - main
 
+env:
+  GIT_HASH: $(git rev-parse --short "$GITHUB_SHA")
+
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -20,5 +23,5 @@ jobs:
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }} 
           dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          commit_hash: ${ GITHUB_SHA }
+          commit_hash: ${{ GIT_HASH }}
           token: ${{ secrets.GITHUB_TOKEN }}
