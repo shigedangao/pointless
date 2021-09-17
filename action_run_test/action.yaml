@@ -1,5 +1,10 @@
 name: 'Unit test'
 description: 'Run unit test & lint for pointless project'
+inputs:
+  token:
+    description: github token
+    default: ''
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -10,5 +15,5 @@ runs:
       shell: bash
     - uses: actions-rs/clippy-check@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.token }}
         args: --all-features
