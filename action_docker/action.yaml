@@ -9,10 +9,6 @@ inputs:
     description: docker password
     default: ''
     required: true
-  commit_hash:
-    description: commit hash
-    default: ''
-    required: true
   token:
     description: github token
     default: ''
@@ -35,4 +31,4 @@ runs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ inputs.dockerhub_username }}/pointless:${{ inputs.commit_hash }}
+        tags: ${{ inputs.dockerhub_username }}/pointless:$GITHUB_SHA
