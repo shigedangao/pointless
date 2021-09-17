@@ -26,11 +26,14 @@ runs:
       with:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_password }}
+    - name: Github sha
+      run: echo "SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+      shell: bash
     - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: $TAG_NAME
-      env:
-        TAG_NAME: ${{ inputs.dockerhub_username }}/pointless:$GITHUB_SHA
+        tags: ${{ inputs.dockerhub_username }}/pointless:${ env.SHA }
+        build-args: |
+          SHA=${{ env.SHA }}
