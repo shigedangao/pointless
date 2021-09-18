@@ -3,6 +3,7 @@ use rand::Rng;
 use warp::Filter;
 
 const RUST_LOG: &str = "RUST_LOG";
+const ENV: &str = "ENV";
 
 /// Format the small html body with the word / emoji that you want to input. By default arg is a heart
 fn format_html() -> String {
@@ -36,6 +37,7 @@ fn setup() {
 
 #[tokio::main]
 async fn main() {
+    let mut addr: [u8; 4] = [127, 0, 0, 1];
     let default = warp::any()
         .map(|| {
             let body = format_html();
@@ -48,9 +50,15 @@ async fn main() {
     // log something...
     log::info!("Starting server !");
 
+    if let Some(env) = env::var_os(ENV) {
+        if env == "prod" {
+            addr = [0, 0, 0, 0];
+        }
+    }
+
     // starting the server
     warp::serve(warp::get().and(default))
-        .run(([127, 0, 0, 1], 3000))
+        .run((addr, 3000))
         .await;
 }
 
