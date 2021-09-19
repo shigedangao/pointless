@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-     - main
+     - dev
 
 jobs:
   test:
@@ -33,7 +33,7 @@ jobs:
           {
             "ref": "main",
             "inputs": {
-              "environment": "production",
+              "environment": "preproduction",
               "tag": "$SHA7"
             }
           }
