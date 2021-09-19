@@ -29,12 +29,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: update gogo helm chart
         run: |
+          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`"
           body=$(cat << EOF
           {
             "ref": "main",
             "inputs": {
               "environment": "preproduction",
-              "tag": "sha-$SHA7"
+              "tag": "sha-$SHORT_SHA"
             }
           }
           EOF
@@ -47,5 +48,4 @@ jobs:
             https://api.github.com/repos/shigedangao/gogo/actions/workflows/dispatch.yaml/dispatches \
             -d "$body"
         env:
-          SHA7: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
