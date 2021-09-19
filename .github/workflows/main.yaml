@@ -34,7 +34,7 @@ jobs:
             "ref": "main",
             "inputs": {
               "environment": "production",
-              "tag": "$SHA7"
+              "tag": "sha-$SHA7"
             }
           }
           EOF
@@ -47,5 +47,5 @@ jobs:
             https://api.github.com/repos/shigedangao/gogo/actions/workflows/dispatch.yaml/dispatches \
             -d "$body"
         env:
-          SHA7: sha-${GITHUB_SHA::7} 
+          SHA7: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
